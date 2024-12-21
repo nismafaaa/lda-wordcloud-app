@@ -1,0 +1,8 @@
+google-play-scraper
+pandas
+nltk
+sastrawi
+gensim
+matplotlib
+wordcloud
+pickle-mixin
