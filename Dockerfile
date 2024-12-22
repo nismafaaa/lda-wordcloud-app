@@ -11,4 +11,4 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Command to run the application
-CMD ["python", "training.py"]
+CMD ["python", "model.py"]
