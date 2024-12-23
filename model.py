@@ -79,11 +79,29 @@ stemmer = factory.create_stemmer()
 def stem_text(text):
     return stemmer.stem(text)
 
-# Step 4: Generate LDA model and word cloud
-def generate_lda_and_wordcloud(df_token):
-    # Pastikan tidak menggunakan ast.literal_eval jika data sudah berupa list Python
-    # df_token['tokenized_stemmed_text'] = df_token['tokenized_stemmed_text'].apply(ast.literal_eval)
+# Function to generate and save word clouds for the best LDA model
+def save_and_plot_word_cloud(lda_model, num_topics):
+    for i in range(num_topics):
+        # Get topic words and frequencies
+        topic_words = dict(lda_model.show_topic(i, topn=20))
+        
+        # Generate word cloud
+        wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(topic_words)
+        
+        # Save word cloud to file
+        output_path = f"wordcloud_topic_{i + 1}.png"
+        wordcloud.to_file(output_path)
+        print(f"Word cloud for Topic {i + 1} saved to {output_path}")
+        
+        # Optionally, display the word cloud
+        plt.figure(figsize=(8, 6))
+        plt.imshow(wordcloud, interpolation='bilinear')
+        plt.axis("off")
+        plt.title(f"Topic {i + 1}")
+        plt.show()
 
+# Update the function to include saving word clouds for the best model
+def generate_lda_and_wordcloud(df_token):
     # Create dictionary and corpus for LDA
     dictionary = corpora.Dictionary(df_token['tokenized_stemmed_text'])
     corpus = [dictionary.doc2bow(doc) for doc in df_token['tokenized_stemmed_text']]
@@ -118,19 +136,10 @@ def generate_lda_and_wordcloud(df_token):
 
     print("Best Coherence Score:", best_coherence)
 
-    # Function to generate word cloud for each topic
-    def plot_word_cloud(lda_model, num_topics):
-        for i in range(num_topics):
-            plt.figure(figsize=(8, 6))
-            topic_words = dict(lda_model.show_topic(i, topn=20))
-            wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(topic_words)
-            plt.imshow(wordcloud, interpolation='bilinear')
-            plt.axis("off")
-            plt.title(f"Topic {i + 1}")
-            plt.show()
+    # Save and plot word clouds for the best model
+    save_and_plot_word_cloud(best_model, best_model.num_topics)
 
-    plot_word_cloud(best_model, best_model.num_topics)
-
+    # Save the best model, dictionary, and corpus
     best_model.save("lda_model.model")
     dictionary.save("lda_dictionary.dict")
     with open("lda_corpus.pkl", "wb") as f:
