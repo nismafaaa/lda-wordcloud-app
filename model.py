@@ -1,3 +1,5 @@
+from prometheus_client import start_http_server, Counter, Summary
+import time
 import pandas as pd
 import re
 import nltk
@@ -13,33 +15,7 @@ from gensim.models.phrases import Phraser
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 import pickle
-import ast
 
-# Step 1: Function to scrape reviews based on user input URL
-def scrape_reviews(url):
-    match = re.search(r'id=([^&]+)', url)
-    if match:
-        url_id = match.group(1)
-        print("ID Aplikasi:", url_id)
-    else:
-        print("Tidak ditemukan ID aplikasi dalam URL.")
-        return None
-
-    result, _ = reviews(
-        url_id,
-        lang='id',
-        country='id',
-        sort=Sort.NEWEST,
-        count=1000,
-        filter_score_with=None
-    )
-
-    df = pd.DataFrame(result)
-    df = df[['content']]
-    df.to_csv('review.csv', encoding='utf-8')
-    return df
-
-# Step 2: Preprocessing function for cleaning text
 def clean_text(text):
     text = re.sub(r'-', ' ', text)
     text = re.sub(r'#(\w+)', r'\1', text)
@@ -100,7 +76,57 @@ def save_and_plot_word_cloud(lda_model, num_topics):
         plt.title(f"Topic {i + 1}")
         plt.show()
 
-# Update the function to include saving word clouds for the best model
+# Prometheus Metrics
+SCRAPE_REQUESTS = Counter('scrape_requests_total', 'Total number of scrape requests')
+SCRAPE_DURATION = Summary('scrape_duration_seconds', 'Time taken to scrape reviews')
+PREPROCESSING_DURATION = Summary('preprocessing_duration_seconds', 'Time taken for preprocessing')
+LDA_DURATION = Summary('lda_duration_seconds', 'Time taken to generate LDA model')
+
+# Step 1: Function to scrape reviews based on user input URL
+@SCRAPE_DURATION.time()
+def scrape_reviews(url):
+    SCRAPE_REQUESTS.inc()  # Increment scrape request counter
+    match = re.search(r'id=([^&]+)', url)
+    if match:
+        url_id = match.group(1)
+        print("ID Aplikasi:", url_id)
+    else:
+        print("Tidak ditemukan ID aplikasi dalam URL.")
+        return None
+
+    result, _ = reviews(
+        url_id,
+        lang='id',
+        country='id',
+        sort=Sort.NEWEST,
+        count=1000,
+        filter_score_with=None
+    )
+
+    df = pd.DataFrame(result)
+    df = df[['content']]
+    df.to_csv('review.csv', encoding='utf-8')
+    return df
+
+# Step 2: Preprocessing function for cleaning text
+@PREPROCESSING_DURATION.time()
+def preprocess_reviews(df, abbreviation_dict):
+    df_clean = df.copy()
+    df_clean['content'] = df_clean['content'].apply(clean_text)
+    df_clean['content'] = df_clean['content'].apply(lambda x: change_text(x, abbreviation_dict))
+    df_unique = df_clean.drop_duplicates()
+
+    df_token = df_unique.copy()
+    df_token['tokenized_text'] = df_token['content'].apply(tokenize_text)
+    df_token['stemmed_text'] = df_token['content'].apply(stem_text)
+    df_token['filtered_text'] = df_token['stemmed_text'].apply(remove_stopwords)
+    df_token['tokenized_stemmed_text'] = df_token['filtered_text'].apply(word_tokenize)
+
+    df_token.to_csv('cleaned_review.csv', encoding='utf-8')
+    return df_token
+
+# Step 3: Generate LDA model and word cloud
+@LDA_DURATION.time()
 def generate_lda_and_wordcloud(df_token):
     # Create dictionary and corpus for LDA
     dictionary = corpora.Dictionary(df_token['tokenized_stemmed_text'])
@@ -145,31 +171,24 @@ def generate_lda_and_wordcloud(df_token):
     with open("lda_corpus.pkl", "wb") as f:
         pickle.dump(corpus, f)
 
-# Step 5: Main function to integrate everything
+# Step 4: Main function to integrate everything
 def main():
+    # Start Prometheus metrics server on port 8001
+    start_http_server(8001)
+    print("Prometheus metrics server is running on port 8001")
+
+    # Run your scraping, preprocessing, and LDA processes
     url = input("Masukkan URL aplikasi di Google Play Store: ")
     df = scrape_reviews(url)
-
     if df is not None:
-        # Preprocess and clean reviews
         df_kamus = pd.read_csv('kamus_singkatan.csv', delimiter=';')
         abbreviation_dict = dict(zip(df_kamus['singkatan'], df_kamus['arti']))
-
-        df_clean = df.copy()
-        df_clean['content'] = df_clean['content'].apply(clean_text)
-        df_clean['content'] = df_clean['content'].apply(lambda x: change_text(x, abbreviation_dict))
-        df_unique = df_clean.drop_duplicates()
-
-        df_token = df_unique.copy()
-        df_token['tokenized_text'] = df_token['content'].apply(tokenize_text)
-        df_token['stemmed_text'] = df_token['content'].apply(stem_text)
-        df_token['filtered_text'] = df_token['stemmed_text'].apply(remove_stopwords)
-        df_token['tokenized_stemmed_text'] = df_token['filtered_text'].apply(word_tokenize)
-
-        df_token.to_csv('cleaned_review.csv', encoding='utf-8')
-
-        # Generate LDA model and word cloud
+        df_token = preprocess_reviews(df, abbreviation_dict)
         generate_lda_and_wordcloud(df_token)
+
+    # Keep the script running to serve the metrics
+    while True:
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
