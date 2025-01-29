@@ -1,8 +1,0 @@
-google-play-scraper
-pandas
-nltk==3.8.1
-sastrawi
-gensim
-matplotlib
-wordcloud
-pickle-mixin
