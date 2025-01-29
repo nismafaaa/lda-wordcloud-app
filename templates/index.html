@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Review Lens: Generate word clouds from Google Play Store reviews.">
+    <meta name="author" content="Nisma Fadillah">
+    <title>Review Lens</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function() {
+                document.getElementById('loading').style.display = 'flex';
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Review Lens</h1>
+        <p>See what users are saying—explore with Review Lens!</p>
+        <form method="post">
+            <label for="url">Enter Google Play Store URL:</label>
+            <div class="example">Example: <code>https://play.google.com/store/apps/details?id=com.tomoro.indonesia.android&hl=id&pli=1</code></div>
+            <input type="text" id="url" name="url" required aria-required="true">
+            <button type="submit">Generate Wordcloud</button>
+        </form>
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <span>Generating wordcloud, please wait...</span>
+        </div>
+    </div>
+</body>
+</html>

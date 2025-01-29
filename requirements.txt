@@ -1,0 +1,14 @@
+Flask
+Flask-WTF
+google-play-scraper
+pandas
+nltk==3.8.1
+Sastrawi
+gensim
+matplotlib
+wordcloud
+pickle-mixin
+prometheus-client
+mlflow
+pytest
+SQLAlchemy
