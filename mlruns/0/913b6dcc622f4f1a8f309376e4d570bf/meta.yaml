@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/913b6dcc622f4f1a8f309376e4d570bf/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 913b6dcc622f4f1a8f309376e4d570bf
+run_name: gifted-shrew-857
+run_uuid: 913b6dcc622f4f1a8f309376e4d570bf
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745844956325
+status: 1
+tags: []
+user_id: root

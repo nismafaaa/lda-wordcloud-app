@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/b8f5b0f510b64e4daf95c312a85fcf5c/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b8f5b0f510b64e4daf95c312a85fcf5c
+run_name: dashing-hound-384
+run_uuid: b8f5b0f510b64e4daf95c312a85fcf5c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745840329025
+status: 1
+tags: []
+user_id: root

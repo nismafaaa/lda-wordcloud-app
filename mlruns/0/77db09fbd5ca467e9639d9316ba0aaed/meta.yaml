@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/77db09fbd5ca467e9639d9316ba0aaed/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 77db09fbd5ca467e9639d9316ba0aaed
+run_name: incongruous-croc-426
+run_uuid: 77db09fbd5ca467e9639d9316ba0aaed
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745836094212
+status: 1
+tags: []
+user_id: root

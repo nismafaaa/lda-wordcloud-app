@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/0a1acc859c8b419a82d5e877ae2e0dd3/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0a1acc859c8b419a82d5e877ae2e0dd3
+run_name: mysterious-mule-867
+run_uuid: 0a1acc859c8b419a82d5e877ae2e0dd3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745833505049
+status: 1
+tags: []
+user_id: kc2

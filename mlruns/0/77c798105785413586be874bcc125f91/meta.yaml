@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/77c798105785413586be874bcc125f91/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 77c798105785413586be874bcc125f91
+run_name: powerful-snake-779
+run_uuid: 77c798105785413586be874bcc125f91
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745838309020
+status: 1
+tags: []
+user_id: root

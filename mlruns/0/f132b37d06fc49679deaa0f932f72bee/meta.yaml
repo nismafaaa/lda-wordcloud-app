@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/f132b37d06fc49679deaa0f932f72bee/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f132b37d06fc49679deaa0f932f72bee
+run_name: bedecked-rat-106
+run_uuid: f132b37d06fc49679deaa0f932f72bee
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745834608003
+status: 1
+tags: []
+user_id: root

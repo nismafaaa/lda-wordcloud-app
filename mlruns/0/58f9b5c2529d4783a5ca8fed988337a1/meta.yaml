@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/58f9b5c2529d4783a5ca8fed988337a1/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 58f9b5c2529d4783a5ca8fed988337a1
+run_name: legendary-rook-422
+run_uuid: 58f9b5c2529d4783a5ca8fed988337a1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745835210392
+status: 1
+tags: []
+user_id: root

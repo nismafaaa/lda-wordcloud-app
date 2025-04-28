@@ -8,7 +8,6 @@ gensim
 matplotlib
 wordcloud
 pickle-mixin
-prometheus-client
 mlflow
 pytest
 SQLAlchemy

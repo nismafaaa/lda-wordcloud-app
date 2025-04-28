@@ -1,31 +1,36 @@
-version: '3.7'
+version: '3.9'
 
 services:
-  review-lens:
-    build: .
-    ports:     
-      - "8000:8000"   
-    environment:
-      - APP_METRICS_PORT=8000
+  flask-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
     volumes:
       - .:/app
-
-  prometheus:
-    image: prom/prometheus
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-    depends_on:
-      - review-lens
-
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin  
+      FLASK_PORT: 8000
+      FLASK_DEBUG: "True"
+    networks:
+      - mlflow-network
     depends_on:
-      - prometheus
+      - mlflow
+    command: python app.py
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:latest
+    ports:
+      - "5000:5000"
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5000
+    command: mlflow server --host 0.0.0.0 --backend-store-uri sqlite:///mlflow.db --default-artifact-root /mlflow/mlruns
+    volumes:
+      - ./mlruns:/mlflow/mlruns
+      - ./mlflow.db:/mlflow/mlflow.db
+    networks:
+      - mlflow-network
+
+networks:
+  mlflow-network:
+    driver: bridge

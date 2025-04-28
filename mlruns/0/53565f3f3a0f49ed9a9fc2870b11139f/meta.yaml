@@ -1,0 +1,15 @@
+artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/53565f3f3a0f49ed9a9fc2870b11139f/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 53565f3f3a0f49ed9a9fc2870b11139f
+run_name: luminous-ant-806
+run_uuid: 53565f3f3a0f49ed9a9fc2870b11139f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1745837291776
+status: 1
+tags: []
+user_id: root
