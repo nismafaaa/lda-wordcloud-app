@@ -1,5 +1,12 @@
+# Python bytecode files
 __pycache__/
 *.pyc
+
+# MLflow directories
 mlruns/
+
+# Data files
 cleaned_review.csv
+
+# Testing files
 test_mlflow.py

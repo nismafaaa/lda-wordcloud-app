@@ -1,7 +1,0 @@
-artifact_location: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0
-creation_time: 1745831377943
-experiment_id: '0'
-last_update_time: 1745833428117
-lifecycle_stage: active
-name: ReviewLensApp
-tags: {}
