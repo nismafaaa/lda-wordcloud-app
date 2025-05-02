@@ -1,8 +1,9 @@
 artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/b43b2bf1de8e44609c76ca0608b0b00f/artifacts
+deleted_time: 1746173991417
 end_time: null
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: b43b2bf1de8e44609c76ca0608b0b00f
 run_name: big-shrimp-813
 run_uuid: b43b2bf1de8e44609c76ca0608b0b00f

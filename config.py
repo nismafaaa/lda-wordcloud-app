@@ -7,16 +7,20 @@ FLASK_DEBUG = os.getenv("FLASK_DEBUG", "True").lower() == "true"
 
 # Logging configuration
 logging.basicConfig(
-    level=logging.DEBUG,  # Temporarily set to DEBUG to capture all logs
+    level=logging.INFO,  # Temporarily set to DEBUG to capture all logs
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
-# Ensure the logs are printed to the console explicitly
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.INFO)
-console_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-logger.addHandler(console_handler)
+if logger.hasHandlers():
+    logger.handlers.clear()
+
+# Filter out noisy loggers
+logging.getLogger('urllib3').setLevel(logging.WARNING)
+logging.getLogger('werkzeug').setLevel(logging.WARNING)
+logging.getLogger('matplotlib').setLevel(logging.WARNING)
+logging.getLogger('PIL').setLevel(logging.WARNING)
+logging.getLogger('requests').setLevel(logging.WARNING)
 
 logger.info("Logger initialized successfully!")  # Confirm that logger works
 

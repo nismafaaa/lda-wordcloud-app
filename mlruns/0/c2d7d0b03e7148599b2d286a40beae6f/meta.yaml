@@ -1,8 +1,9 @@
 artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/c2d7d0b03e7148599b2d286a40beae6f/artifacts
+deleted_time: 1746173991418
 end_time: null
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: c2d7d0b03e7148599b2d286a40beae6f
 run_name: burly-stag-393
 run_uuid: c2d7d0b03e7148599b2d286a40beae6f

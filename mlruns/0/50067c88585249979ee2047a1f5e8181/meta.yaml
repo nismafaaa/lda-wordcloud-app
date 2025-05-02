@@ -1,8 +1,9 @@
 artifact_uri: file:///home/kc2/projects/lda-wordcloud-app/mlruns/0/50067c88585249979ee2047a1f5e8181/artifacts
+deleted_time: 1746173991419
 end_time: null
 entry_point_name: ''
 experiment_id: '0'
-lifecycle_stage: active
+lifecycle_stage: deleted
 run_id: 50067c88585249979ee2047a1f5e8181
 run_name: vaunted-mouse-421
 run_uuid: 50067c88585249979ee2047a1f5e8181

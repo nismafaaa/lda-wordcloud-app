@@ -13,7 +13,7 @@ class ReviewLensApp:
         # Enhanced MLflow initialization with error handling
         try:
             # Set the MLflow tracking URI
-            tracking_uri = "http://mlflow:5000"
+            tracking_uri = "http://127.0.0.1:5000"
             mlflow.set_tracking_uri(tracking_uri)
             
             # Verify MLflow connection
@@ -69,7 +69,7 @@ class ReviewLensApp:
                 processed_df = self.text_preprocessor.preprocess_reviews(df, abbreviation_dict)
                 preprocess_duration = time.time() - start_time_preprocess
                 mlflow.log_metric("preprocess_duration_seconds", preprocess_duration)
-                mlflow.log_artifact("cleaned_reviews.csv")  # Log cleaned dataset as artifact
+                mlflow.log_artifact("cleaned_review.csv")  # Log cleaned dataset as artifact
                 logger.info(f"Successfully preprocessed {len(processed_df)} reviews in {preprocess_duration:.2f} seconds")
                 
                 # Step 4: Generate LDA model
